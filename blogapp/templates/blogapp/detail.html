@@ -1,0 +1,44 @@
+{% extends 'blogapp/base.html' %}
+
+{% block body %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+        <img class="img img-responsive img img-thumbnail" src="{{ post.image.url }}" alt="" style="height: 350px; width: 300px;">
+        <div class="img-text">
+            {{ post.title }}  <br>{{ post.created|date:"F d, Y" }}
+        </div>
+    </div>
+
+        <div class="col-sm-8">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li class="active"><a href="">Read</a> </li>
+                <li class=""><a href="">Comment</a> </li>
+            </ul>
+
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h4 class=""><b>{{ post.title }}</b><small style="float: right;">{{ post.created|date:"F d, Y" }}</small></h4>
+                    <hr>
+                    <P>{{ post.content }}</P>
+                </div>
+            </div>
+            <div>
+                <h5 class="text-primary"><b>Comments</b></h5>
+            </div>
+
+   <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Comment</legend>
+        {{ form }}
+    </fieldset>
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-info">Submit</button>
+        <button type="reset" class="btn btn-outline-danger">Cancel</button>
+    </div>
+</form>
+        </div>
+    </div>
+    </div>
+{% endblock %}
