@@ -3,10 +3,12 @@ from django.views.generic import ListView, DeleteView, UpdateView, CreateView
 from . models import Post, Comment
 from . forms import CommentForm, UserForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
 	model = Post
 	fields = ['title', 'image', 'content']
 
@@ -28,6 +30,7 @@ def detail(request, post_id):
 	return render(request, 'blogapp/detail.html', {'post': post, 'form': form})
 
 
+@login_required(login_url='blogapp:login')
 def add_comment(request, post_id):
 	form = CommentForm(request.POST or None)
 	post = get_object_or_404(Post, pk=post_id)
