@@ -29,7 +29,7 @@
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class=""><a href=""><span class="glyphicon glyphicon-book-open" aria-hidden="true"></span>&nbsp; Posts</a></li>
+                <li class=""><a href="{% url 'blogapp:myposts' %}"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp; My Posts</a></li>
             </ul>
             <form class="navbar-form navbar-left" role="search" method="get" action="">
                 <div class="form-group">
@@ -46,7 +46,7 @@
 
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'blogapp:logout' %}">
+                   <a href="{% url 'blogapp:logout' %}">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
                     </a>
                 </li>

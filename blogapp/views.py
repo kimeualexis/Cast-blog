@@ -24,6 +24,11 @@ class PostListView(ListView):
 	template_name = 'blogapp/index.html'
 
 
+def my_posts(request):
+	posts = Post.objects.filter(user=request.user)
+	return render(request, 'blogapp/index.html', {'posts': posts})
+
+
 def detail(request, post_id):
 	form = CommentForm(request.POST or None)
 	post = get_object_or_404(Post, pk=post_id)
