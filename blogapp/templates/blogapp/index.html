@@ -5,13 +5,32 @@
     <div class="row">
         {% if posts %}
             {% for post in posts %}
-                <div class="col-sm-3 text-center">
+                <div class="col-sm-3">
+                <div class="thumbnail">
                 <a href="{% url 'blogapp:detail' post.id %}">
                 <img class="img img-responsive img img-thumbnail" src="{{ post.image.url }}" alt="" style="height: 350px; width: 300px;">
                 </a>
-                <div class="img-text">
-                    {{ post.title }}  <br>{{ post.created|date:"F d, Y" }}
+
+                    <div class="caption">
+                    <h4>{{ post.title }} <small style="float: right;">{{ post.created|date:"F d, Y" }}</small> </h4>
+                    <h5> <strong>Author: </strong>{{ post.user }}</h5>
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="album_id" value="{{ album.id }}">
+
+                            {% if request.user == post.user %}
+                            <a href="{% url 'blogapp:update' post.pk %}" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;Update
+                            </a>
+                            <a href="{% url 'blogapp:delete' post.pk %}" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
+                            </a>
+                            {% endif %}
+                        </form>
                 </div>
+
+                </div>
+
                 </div>
             {% endfor %}
         {% endif %}

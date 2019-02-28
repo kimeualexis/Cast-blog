@@ -4,16 +4,19 @@
     <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3">
-        <img class="img img-responsive img img-thumbnail" src="{{ post.image.url }}" alt="" style="height: 350px; width: 300px;">
-        <div class="img-text">
-            {{ post.title }}  <br>{{ post.created|date:"F d, Y" }}
+            <div class="thumbnail">
+        <img class="img img-responsive img img-thumbnail" src="{{ post.image.url }}" alt="" style="height: 350px; width: 280px;">
+        <div class="caption">
+            <h4>{{ post.title }} <small style="float: right">{{ post.created|date:"F d, Y" }}</small> </h4>
+           <h5> <strong>Author: </strong>{{ post.user }}</h5>
         </div>
+            </div>
     </div>
 
         <div class="col-sm-8">
             <ul class="nav nav-pills" style="margin-bottom: 10px;">
                 <li class="active"><a href="">Read</a> </li>
-                <li class=""><a href="">Comment</a> </li>
+                <li class=""> <a href="" data-toggle="modal" data-target="#myModal">comment</a> </li>
             </ul>
 
             <div class="panel panel-primary">
@@ -22,23 +25,45 @@
                     <hr>
                     <P>{{ post.content }}</P>
                 </div>
+
             </div>
             <div>
-                <h5 class="text-primary"><b>Comments</b></h5>
+                <h5 class="text-primary"><b>Comments: &nbsp;{{ post.comment_set.count }}</b></h5>
             </div>
+        {% if post.comment_set %}
+            {% for comm in post.comment_set.all %}
+            <p>{{ comm.comment }}</p>
+                <hr>
+            {% endfor %}
+        {% endif %}
 
-   <form method="POST">
-    {% csrf_token %}
-    <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Comment</legend>
-        {{ form }}
-    </fieldset>
-    <div class="form-group">
-        <button type="submit" class="btn btn-outline-info">Submit</button>
-        <button type="reset" class="btn btn-outline-danger">Cancel</button>
-    </div>
-</form>
         </div>
     </div>
+
+
+    <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+
+<!-- Modal content-->
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title text-primary" style="padding-left: 21px;">Comment</h4>
     </div>
+    <div class="modal-body">
+    <form method="POST" action="{% url 'blogapp:comment' post.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+        {% include 'blogapp/form_template.html' %}
+    <div class="form-group" style="padding-left: 107px;">
+        <button type="submit" class="btn btn-info">Submit</button>
+    </div>
+    </form>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+
+
 {% endblock %}
