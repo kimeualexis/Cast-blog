@@ -13,7 +13,7 @@
 
                     <div class="caption">
                     <h4>{{ post.title }} <small style="float: right;">{{ post.created|date:"F d, Y" }}</small> </h4>
-                    <h5> <strong>Author: </strong>{{ post.user }}</h5>
+                        <h5> <strong>Author: </strong><small style="color: darkcyan; font-size: 14px;">{{ post.user }}</small></h5>
                         <form method="post" action="">
                             {% csrf_token %}
                             <input type="hidden" name="album_id" value="{{ album.id }}">

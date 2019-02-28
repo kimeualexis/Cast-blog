@@ -8,7 +8,7 @@
         <img class="img img-responsive img img-thumbnail" src="{{ post.image.url }}" alt="" style="height: 350px; width: 280px;">
         <div class="caption">
             <h4>{{ post.title }}</h4>
-           <h5> <strong>Author: </strong>{{ post.user }}</h5>
+            <h5> <strong>Author: </strong><small style="color: darkcyan; font-size: 14px;"> {{ post.user }} </small></h5>
         </div>
             </div>
     </div>
@@ -41,7 +41,7 @@
             </div>
         {% if post.comment_set %}
             {% for comm in post.comment_set.all %}
-            <p>{{ comm.comment }}</p>
+            <p>{{ comm.comment }} <small style="float: right; color: darkcyan;">~{{ comm.user }}</small> </p>
                 <hr>
             {% endfor %}
         {% endif %}
