@@ -7,7 +7,7 @@
             <div class="thumbnail">
         <img class="img img-responsive img img-thumbnail" src="{{ post.image.url }}" alt="" style="height: 350px; width: 280px;">
         <div class="caption">
-            <h4>{{ post.title }} <small style="float: right">{{ post.created|date:"F d, Y" }}</small> </h4>
+            <h4>{{ post.title }}</h4>
            <h5> <strong>Author: </strong>{{ post.user }}</h5>
         </div>
             </div>
@@ -21,7 +21,16 @@
 
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <h4 class=""><b>{{ post.title }}</b><small style="float: right;">{{ post.created|date:"F d, Y" }}</small></h4>
+                    <h4 class=""><b>{{ post.title }}</b> {% if request.user == post.user %}
+                    <a href="{% url 'blogapp:update' post.pk %}" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;
+                    </a>
+                    <a href="{% url 'blogapp:delete' post.pk %}" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-trash"></span>&nbsp;
+                    </a>
+                 {% endif %}
+                        <small style="float: right;">{{ post.created|date:"F d, Y" }}</small></h4>
+
                     <hr>
                     <P>{{ post.content }}</P>
                 </div>

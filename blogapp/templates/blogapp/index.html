@@ -18,14 +18,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="album_id" value="{{ album.id }}">
 
-                            {% if request.user == post.user %}
-                            <a href="{% url 'blogapp:update' post.pk %}" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;Update
-                            </a>
-                            <a href="{% url 'blogapp:delete' post.pk %}" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
-                            </a>
-                            {% endif %}
+
                         </form>
                 </div>
 

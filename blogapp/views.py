@@ -44,6 +44,7 @@ def add_comment(request, post_id):
 class PostUpdateView(UpdateView):
 	model = Post
 	fields = ['title', 'image', 'content']
+	template_name = 'blogapp/post_update.html'
 
 	def get_success_url(self):
 		return reverse('blogapp:index')
